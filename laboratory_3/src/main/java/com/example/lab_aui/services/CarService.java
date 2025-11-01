@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CarService implements CarServiceInterface {
@@ -29,8 +31,13 @@ public class CarService implements CarServiceInterface {
     }
 
     @Override
-    public Car findByModel(String model) {
-        return carRepository.findByModel(model);
+    public Optional<Car> findByModel(String model) {
+        return Optional.ofNullable(carRepository.findByModel(model));
+    }
+
+    @Override
+    public Optional<Car> findById(UUID id) {
+        return carRepository.findById(id);
     }
 
     @Override

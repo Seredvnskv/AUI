@@ -1,13 +1,14 @@
 package com.example.lab_aui.services;
 
 import com.example.lab_aui.entities.Brand;
-import com.example.lab_aui.entities.Car;
 import com.example.lab_aui.repositories.BrandRepository;
 import com.example.lab_aui.services.interfaces.BrandServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BrandService implements BrandServiceInterface {
@@ -24,6 +25,11 @@ public class BrandService implements BrandServiceInterface {
     }
 
     @Override
+    public Optional<Brand> findById(UUID id) {
+        return brandRepository.findById(id);
+    }
+
+    @Override
     public void deleteAll() {
         brandRepository.deleteAll();
     }
@@ -34,8 +40,8 @@ public class BrandService implements BrandServiceInterface {
     }
 
     @Override
-    public Brand findByName(String name) {
-        return brandRepository.findByName(name);
+    public Optional<Brand> findByName(String name) {
+        return Optional.ofNullable(brandRepository.findByName(name));
     }
 
     @Override

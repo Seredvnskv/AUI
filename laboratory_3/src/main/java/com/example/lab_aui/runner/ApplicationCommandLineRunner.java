@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Year;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -18,7 +19,7 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
     private final CarService carService;
     private static final int CURRENT_YEAR = Year.now().getValue();
     private static final int MIN_ESTABLISHMENT_YEAR = 1800;
-    private static final int MIN_CAR_YEAR = 1886;
+    private static final int MIN_CAR_YEAR = 1990;
 
     @Autowired
     public ApplicationCommandLineRunner(BrandService brandService, CarService carService) {
@@ -55,13 +56,13 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
                 case "get_brand_cars" -> {
                     String brand_name = readNonEmptyString(scanner, "Enter brand name: ");
 
-                    Brand brand = brandService.findByName(brand_name);
-                    if (brand == null) {
+                    Optional<Brand> brand = brandService.findByName(brand_name);
+                    if (!brand.isPresent()) {
                         System.out.println("Brand name not found!");
                         break;
                     }
 
-                    carService.findByBrand(brand)
+                    carService.findByBrand(brand.get())
                             .stream()
                             .sorted(Comparator.comparing(Car::getModel))
                             .forEach(System.out::println);
@@ -87,8 +88,8 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
                 case "add_car" -> {
                     String brand_name = readNonEmptyString(scanner, "Enter car's brand name: ");
 
-                    Brand brand = brandService.findByName(brand_name);
-                    if (brand == null) {
+                    Optional<Brand> brand = brandService.findByName(brand_name);
+                    if (!brand.isPresent()) {
                         System.out.println("Brand name not found!");
                         break;
                     }
@@ -101,7 +102,7 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
                             .model(car_model)
                             .productionYear(production_year)
                             .price(car_price)
-                            .brand(brand)
+                            .brand(brand.get())
                             .build();
 
                     carService.add(car);
@@ -110,25 +111,25 @@ public class ApplicationCommandLineRunner implements CommandLineRunner {
                 case "remove_brand" -> {
                     String brand_name = readNonEmptyString(scanner, "Enter brand name: ");
 
-                    Brand brand = brandService.findByName(brand_name);
-                    if (brand == null) {
+                    Optional<Brand> brand = brandService.findByName(brand_name);
+                    if (!brand.isPresent()) {
                         System.out.printf("Brand name %s not found!%n", brand_name);
                         break;
                     }
 
-                    brandService.delete(brand);
+                    brandService.delete(brand.get());
                     System.out.printf("Brand %s removed successfully!%n", brand_name);
                 }
                 case "remove_car" -> {
                     String car_model = readNonEmptyString(scanner, "Enter car's model: ");
 
-                    Car car = carService.findByModel(car_model);
-                    if (car == null) {
+                    Optional<Car> car = carService.findByModel(car_model);
+                    if (!car.isPresent()) {
                         System.out.printf("Car model %s not found!%n", car_model);
                         break;
                     }
 
-                    carService.delete(car);
+                    carService.delete(car.get());
                     System.out.printf("Car %s removed successfully!%n", car_model);
                 }
                 case "help" -> {

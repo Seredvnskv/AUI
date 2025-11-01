@@ -1,0 +1,91 @@
+@host=http://localhost:8080
+
+@name-update=MiniCooper
+@model=CooperMX_2020
+
+### GET ALL BRANDS
+GET {{host}}/api/brands
+
+### GET ALL CARS
+GET {{host}}/api/cars
+
+### CREATE NEW BRAND
+POST {{host}}/api/brands
+Content-Type: application/json
+
+{
+  "name": "MiniCooper",
+  "country": "England",
+  "establishmentDate": 1964
+}
+
+### CREATE NEW CAR
+POST {{host}}/api/cars
+Content-Type: application/json
+
+{
+  "brandName": "MiniCooper",
+  "model": "CooperMX_2020",
+  "price": 200000,
+  "productionYear": 2020
+}
+
+### FAILED BRAND CREATE REQUEST
+POST {{host}}/api/brands
+Content-Type: application/json
+
+{
+  "name": "TestBrand",
+  "country": "Poland",
+  "establishmentDate": -3000
+}
+
+### FAILED CAR CREATE REQUEST
+POST {{host}}/api/cars
+Content-Type: application/json
+
+{
+  "brandName": "MiniCooper",
+  "model": "CooperTestCar",
+  "price": -900,
+  "productionYear": -100
+}
+
+### UPDATE BRAND
+PATCH {{host}}/api/brands/name/{{name-update}}
+Content-Type: application/json
+
+{
+  "country": "UK",
+  "establishmentDate": 2000
+}
+
+### UPDATE CAR
+PATCH {{host}}/api/cars/model/{{model}}
+Content-Type: application/json
+
+{
+  "price": 1000000
+}
+
+### FAILED BRAND UPDATE REQUEST
+PATCH {{host}}/api/brands/name/Toyota
+Content-Type: application/json
+
+{
+  "establishmentDate": -2000
+}
+
+### FAILED CAR UPDATE REQUEST
+PATCH {{host}}/api/cars/model/Supra
+Content-Type: application/json
+
+{
+  "price": -500000
+}
+
+### DELETE BRAND
+DELETE {{host}}/api/brands/name/Ford
+
+### DELETE CAR
+DELETE {{host}}/api/cars/model/{{model}}

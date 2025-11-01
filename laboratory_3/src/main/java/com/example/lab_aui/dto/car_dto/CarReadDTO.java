@@ -8,8 +8,8 @@ import java.util.UUID;
 @Value
 public class CarReadDTO {
     UUID id;
+    String brandName;
     String model;
     Integer productionYear;
     Double price;
-    String brand_name;
 }

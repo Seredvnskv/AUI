@@ -6,6 +6,7 @@ import java.util.UUID;
 
 @Value
 public class BrandListItemDTO {
-    UUID id;
     String name;
+    String country;
+    Integer establishmentDate;
 }
