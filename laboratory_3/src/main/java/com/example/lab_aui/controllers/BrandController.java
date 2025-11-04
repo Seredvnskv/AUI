@@ -4,8 +4,10 @@ import com.example.lab_aui.dto.brand_dto.BrandCreateDTO;
 import com.example.lab_aui.dto.brand_dto.BrandListItemDTO;
 import com.example.lab_aui.dto.brand_dto.BrandReadDTO;
 import com.example.lab_aui.dto.brand_dto.BrandUpdateDTO;
+import com.example.lab_aui.dto.car_dto.CarListItemDTO;
 import com.example.lab_aui.entities.Brand;
 import com.example.lab_aui.services.BrandService;
+import com.example.lab_aui.services.CarService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,17 +22,20 @@ import java.util.UUID;
 @RequestMapping("/api/brands")
 public class BrandController {
     private final BrandService brandService;
+    private final CarService carService;
 
     @Autowired
-    public BrandController(BrandService brandService) {
+    public BrandController(BrandService brandService, CarService carService) {
         this.brandService = brandService;
+        this.carService = carService;
     }
 
     @GetMapping
     public ResponseEntity<List<BrandListItemDTO>> getBrands() {
         return new ResponseEntity<>(brandService.findAll()
                 .stream()
-                .map(brand -> new BrandListItemDTO(brand.getName(), brand.getCountry(), brand.getEstablishmentDate()))
+                .map(brand -> new BrandListItemDTO(brand.getName(), brand.getCountry(),
+                        brand.getEstablishmentDate()))
                 .toList(), HttpStatus.OK);
     }
 
@@ -57,7 +62,25 @@ public class BrandController {
 
         BrandReadDTO dto = new BrandReadDTO(brand.get().getId(), brand.get().getName(),
                 brand.get().getCountry(), brand.get().getEstablishmentDate());
+
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @GetMapping("{name}/cars")
+    public ResponseEntity<List<CarListItemDTO>> getBrandsByName(@PathVariable("name") String name) {
+        Optional<Brand> optionalBrand = brandService.findByName(name);
+
+        if (!optionalBrand.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Brand brand = optionalBrand.get();
+
+        return new ResponseEntity<>(
+                carService.findByBrand(brand)
+                .stream()
+                .map(car -> new CarListItemDTO(car.getBrand().getName(),
+                        car.getModel(), car.getProductionYear(), car.getPrice())).toList(), HttpStatus.OK);
     }
 
     @PostMapping
