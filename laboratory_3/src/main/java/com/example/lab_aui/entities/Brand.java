@@ -3,6 +3,7 @@ package com.example.lab_aui.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,9 +19,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Brand {
     @Id
-    @Builder.Default
     @Column(name = "id", unique = true, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -41,6 +41,14 @@ public class Brand {
         if (car != null) {
             cars.add(car);
             car.setBrand(this);
+        }
+    }
+
+    @PrePersist
+    private void assignDeterministicId() {
+        if (this.id == null) {
+            String base = (this.name == null ? "" : this.name.trim().toLowerCase());
+            this.id = UUID.nameUUIDFromBytes(base.getBytes(StandardCharsets.UTF_8));
         }
     }
 }
