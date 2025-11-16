@@ -40,22 +40,22 @@ public class BrandService implements BrandServiceInterface {
     }
 
     @Override
-    public Optional<Brand> findByName(String name) {
-        return Optional.ofNullable(brandRepository.findByName(name));
+    public void add(UUID id) {
+        if (brandRepository.findById(id).isPresent()) {
+            throw new IllegalStateException("Brand already exists");
+        }
+
+        brandRepository.save(Brand.builder().id(id).build());
     }
 
     @Override
-    public void add(Brand brand) {
-        brandRepository.save(brand);
-    }
+    public void delete(UUID id) {
+        Optional<Brand> optionalBrand = brandRepository.findById(id);
 
-    @Override
-    public void delete(Brand brand) {
-        brandRepository.delete(brand);
-    }
+        if (optionalBrand.isEmpty()) {
+            throw new IllegalStateException("Brand Not Found");
+        }
 
-    @Override
-    public void update(Brand brand) {
-        brandRepository.save(brand);
+        brandRepository.delete(optionalBrand.get());
     }
 }

@@ -3,10 +3,12 @@ package com.example.lab_aui.dto;
 import jakarta.validation.constraints.*;
 import lombok.Value;
 
+import java.util.UUID;
+
 @Value
 public class CarCreateDTO {
-    @NotBlank(message = "Brand name can't be empty")
-    String brandName;
+    @NotBlank(message = "Brand id can't be empty")
+    UUID barndId;
 
     @NotBlank(message = "Model can't be empty")
     String model;

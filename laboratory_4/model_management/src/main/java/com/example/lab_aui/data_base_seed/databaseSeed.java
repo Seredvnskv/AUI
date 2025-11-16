@@ -8,7 +8,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class databaseSeed {
@@ -24,26 +26,25 @@ public class databaseSeed {
     @PostConstruct
     public void init() {
         carService.deleteAll();
-        brandService.deleteAll();
 
         Brand mazda = Brand.builder()
-                .name("Mazda")
+                .id(UUID.nameUUIDFromBytes(("Mazda").getBytes(StandardCharsets.UTF_8)))
                 .build();
 
         Brand bmw = Brand.builder()
-                .name("BMW")
+                .id(UUID.nameUUIDFromBytes(("BMW").getBytes(StandardCharsets.UTF_8)))
                 .build();
 
         Brand mercedes = Brand.builder()
-                .name("Mercedes")
+                .id(UUID.nameUUIDFromBytes(("Mercedes").getBytes(StandardCharsets.UTF_8)))
                 .build();
 
         Brand ford = Brand.builder()
-                .name("Ford")
+                .id(UUID.nameUUIDFromBytes(("Ford").getBytes(StandardCharsets.UTF_8)))
                 .build();
 
         Brand toyota = Brand.builder()
-                .name("Toyota")
+                .id(UUID.nameUUIDFromBytes(("Toyota").getBytes(StandardCharsets.UTF_8)))
                 .build();
 
         List<Brand> brands = List.of(mazda, bmw, mercedes, ford, toyota);

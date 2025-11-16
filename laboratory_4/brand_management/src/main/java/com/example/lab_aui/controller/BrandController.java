@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,12 +39,13 @@ public class BrandController {
     public ResponseEntity<BrandReadDTO> getBrand(@PathVariable("uuid") UUID uuid) {
         Optional<Brand> brand = brandService.findById(uuid);
 
-        if (!brand.isPresent()) {
+        if (brand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         BrandReadDTO dto = new BrandReadDTO(brand.get().getId(), brand.get().getName(),
                 brand.get().getCountry(), brand.get().getEstablishmentDate());
+
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
@@ -51,33 +53,37 @@ public class BrandController {
     public ResponseEntity<BrandReadDTO> getBrand(@PathVariable("name") String name) {
         Optional<Brand> brand = brandService.findByName(name);
 
-        if (!brand.isPresent()) {
+        if (brand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         BrandReadDTO dto = new BrandReadDTO(brand.get().getId(), brand.get().getName(),
                 brand.get().getCountry(), brand.get().getEstablishmentDate());
+
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<BrandCreateDTO> createBrand(@Valid @RequestBody BrandCreateDTO brandCreateDTO) {
         Brand brand = Brand.builder()
+                .id(UUID.nameUUIDFromBytes(brandCreateDTO.getName().getBytes(StandardCharsets.UTF_8)))
                 .name(brandCreateDTO.getName())
                 .country(brandCreateDTO.getCountry())
                 .establishmentDate(brandCreateDTO.getEstablishmentDate())
                 .build();
 
         brandService.add(brand);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(new BrandCreateDTO(brand.getName(), brand.getCountry(), brand.getEstablishmentDate()), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{uuid}")
     public ResponseEntity<BrandUpdateDTO> updateBrand(@PathVariable("uuid") UUID uuid,@Valid @RequestBody BrandUpdateDTO brandUpdateDTO) {
         Optional<Brand> brandOptional = brandService.findById(uuid);
-        if (!brandOptional.isPresent()) {
+
+        if (brandOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         Brand brand = brandOptional.get();
 
         if (brandUpdateDTO.getName() != null) brand.setName(brandUpdateDTO.getName());
@@ -85,42 +91,19 @@ public class BrandController {
         if (brandUpdateDTO.getEstablishmentDate() != null) brand.setEstablishmentDate(brandUpdateDTO.getEstablishmentDate());
 
         brandService.update(brand);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PatchMapping("/name/{name}")
-    public ResponseEntity<BrandUpdateDTO> updateBrand(@PathVariable("name") String name,@Valid @RequestBody BrandUpdateDTO brandUpdateDTO) {
-        Optional<Brand> brandOptional = brandService.findByName(name);
-        if (!brandOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Brand brand = brandOptional.get();
-
-        if (brandUpdateDTO.getName() != null) brand.setName(brandUpdateDTO.getName());
-        if (brandUpdateDTO.getCountry() != null) brand.setCountry(brandUpdateDTO.getCountry());
-        if (brandUpdateDTO.getEstablishmentDate() != null) brand.setEstablishmentDate(brandUpdateDTO.getEstablishmentDate());
-
-        brandService.update(brand);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new BrandUpdateDTO(brand.getName(), brand.getCountry(), brand.getEstablishmentDate()), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity<?> deleteBrand(@PathVariable("uuid") UUID uuid) {
         Optional<Brand> brand = brandService.findById(uuid);
-        if (!brand.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        brandService.delete(brand.get());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 
-    @DeleteMapping("name/{name}")
-    public ResponseEntity<?> deleteBrand(@PathVariable("name") String name) {
-        Optional<Brand> brand = brandService.findByName(name);
-        if (!brand.isPresent()) {
+        if (brand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
         brandService.delete(brand.get());
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

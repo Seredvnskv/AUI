@@ -10,9 +10,7 @@ public interface BrandServiceInterface {
     List<Brand> findAll();
     void deleteAll();
     void saveAll(List<Brand> brands);
-    Optional<Brand> findByName(String brand_name);
     Optional<Brand> findById(UUID id);
-    void add(Brand brand);
-    void delete(Brand brand);
-    void update(Brand brand);
+    void add(UUID id);
+    void delete(UUID id);
 }

@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, UUID> {
-    Brand findByName(String name);
-}
+public interface BrandRepository extends JpaRepository<Brand, UUID> {}

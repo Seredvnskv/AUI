@@ -6,9 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Value;
 
+import java.util.UUID;
+
 @Value
 public class CarUpdateDTO {
-    String brandName;
+    UUID brandID;
     String model;
 
     @Min(value = 2000, message = "Production year must be >= 2000")

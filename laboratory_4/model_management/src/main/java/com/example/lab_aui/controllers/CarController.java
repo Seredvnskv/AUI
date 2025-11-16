@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.UUID;
 
 @RestController
@@ -34,42 +35,49 @@ public class CarController {
     public ResponseEntity<List<CarListItemDTO>> getCars() {
         return new ResponseEntity<>(carService.findAll()
                 .stream()
-                .map(car -> new CarListItemDTO(car.getBrand().getName(), car.getModel(),  car.getProductionYear(), car.getPrice()))
+                .map(car -> new CarListItemDTO(car.getBrand().getId(), car.getModel(),  car.getProductionYear(), car.getPrice()))
                 .toList(),  HttpStatus.OK);
     }
 
     @GetMapping("/{uuid}")
     public ResponseEntity<CarReadDTO> getCar(@PathVariable("uuid") UUID uuid) {
-        Optional<Car> car = carService.findById(uuid);
+        Optional<Car> optionalCar = carService.findById(uuid);
 
-        if (!car.isPresent()) {
+        if (optionalCar.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CarReadDTO dto = new CarReadDTO(car.get().getId(), car.get().getBrand().getName(), car.get().getModel(),
-               car.get().getProductionYear(), car.get().getPrice());
+        Car car = optionalCar.get();
+
+        CarReadDTO dto = new CarReadDTO(car.getId(), car.getBrand().getId(), car.getModel(),
+               car.getProductionYear(), car.getPrice());
 
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @GetMapping("/model/{model}")
-    public ResponseEntity<CarReadDTO> getCar(@PathVariable("model") String model) {
-        Optional<Car> car = carService.findByModel(model);
-        if (!car.isPresent()) {
+    @GetMapping("/brand/{uuid}/cars")
+    public ResponseEntity<List<CarListItemDTO>> getCarsByBrand(@PathVariable("uuid") UUID uuid) {
+        Optional<Brand> optionalBrand = brandService.findById(uuid);
+
+        if (optionalBrand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CarReadDTO dto = new CarReadDTO(car.get().getId(), car.get().getBrand().getName(), car.get().getModel(),
-                car.get().getProductionYear(), car.get().getPrice());
+        Brand brand = optionalBrand.get();
 
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        List<CarListItemDTO> cars = brand.getCars()
+                .stream()
+                .map(car -> new CarListItemDTO(car.getBrand().getId(), car.getModel(), car.getProductionYear(), car.getPrice()))
+                .toList();
+
+        return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<CarCreateDTO> createCar(@Valid @RequestBody CarCreateDTO carCreateDTO) {
-        Optional<Brand> brand = brandService.findByName(carCreateDTO.getBrandName());
+        Optional<Brand> brand = brandService.findById(carCreateDTO.getBarndId());
 
-        if (!brand.isPresent()) {
+        if (brand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -87,7 +95,8 @@ public class CarController {
     @PatchMapping("/{uuid}")
     public ResponseEntity<CarUpdateDTO> updateCar(@PathVariable("uuid") UUID uuid,@Valid @RequestBody CarUpdateDTO carUpdateDTO) {
         Optional<Car> carOptional = carService.findById(uuid);
-        if (!carOptional.isPresent()) {
+
+        if (carOptional.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Car car = carOptional.get();
@@ -95,32 +104,9 @@ public class CarController {
         if (carUpdateDTO.getModel() != null) car.setModel(carUpdateDTO.getModel());
         if (carUpdateDTO.getProductionYear() != null) car.setProductionYear(carUpdateDTO.getProductionYear());
         if (carUpdateDTO.getPrice() != null) car.setPrice(carUpdateDTO.getPrice());
-        if (carUpdateDTO.getBrandName() != null)  {
-            Optional<Brand> brandOptional = brandService.findByName(carUpdateDTO.getBrandName());
-            if (!brandOptional.isPresent()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            car.setBrand(brandOptional.get());
-        }
-
-        carService.update(car);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PatchMapping("/model/{model}")
-    public ResponseEntity<CarUpdateDTO> updateCar(@PathVariable("model") String model,@Valid @RequestBody CarUpdateDTO carUpdateDTO) {
-        Optional<Car> carOptional = carService.findByModel(model);
-        if (!carOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        Car car = carOptional.get();
-
-        if (carUpdateDTO.getModel() != null) car.setModel(carUpdateDTO.getModel());
-        if (carUpdateDTO.getProductionYear() != null) car.setProductionYear(carUpdateDTO.getProductionYear());
-        if (carUpdateDTO.getPrice() != null) car.setPrice(carUpdateDTO.getPrice());
-        if (carUpdateDTO.getBrandName() != null)  {
-            Optional<Brand> brandOptional = brandService.findByName(carUpdateDTO.getBrandName());
-            if (!brandOptional.isPresent()) {
+        if (carUpdateDTO.getBrandID() != null)  {
+            Optional<Brand> brandOptional = brandService.findById(carUpdateDTO.getBrandID());
+            if (brandOptional.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             car.setBrand(brandOptional.get());
@@ -134,19 +120,7 @@ public class CarController {
     public ResponseEntity<Void> deleteCar(@PathVariable("uuid") UUID uuid) {
         Optional<Car> car = carService.findById(uuid);
 
-        if (!car.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        carService.delete(car.get());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @DeleteMapping("model/{model}")
-    public ResponseEntity<Void> deleteCar(@PathVariable("model") String model) {
-        Optional<Car> car = carService.findByModel(model);
-
-        if (!car.isPresent()) {
+        if (car.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
