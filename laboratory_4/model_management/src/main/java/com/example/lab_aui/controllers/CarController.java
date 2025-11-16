@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 import java.util.UUID;
 
 @RestController
@@ -55,7 +54,7 @@ public class CarController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @GetMapping("/brand/{uuid}/cars")
+    @GetMapping("/brand/{uuid}/models")
     public ResponseEntity<List<CarListItemDTO>> getCarsByBrand(@PathVariable("uuid") UUID uuid) {
         Optional<Brand> optionalBrand = brandService.findById(uuid);
 

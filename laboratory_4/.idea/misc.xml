@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/brand_management/pom.xml" />
         <option value="$PROJECT_DIR$/model_management/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
   </component>
