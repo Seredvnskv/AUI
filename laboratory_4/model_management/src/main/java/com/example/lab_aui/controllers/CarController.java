@@ -55,7 +55,7 @@ public class CarController {
     }
 
     @GetMapping("/brand/{uuid}/models")
-    public ResponseEntity<List<CarListItemDTO>> getCarsByBrand(@PathVariable("uuid") UUID uuid) {
+    public ResponseEntity<List<CarReadDTO>> getCarsByBrand(@PathVariable("uuid") UUID uuid) {
         Optional<Brand> optionalBrand = brandService.findById(uuid);
 
         if (optionalBrand.isEmpty()) {
@@ -64,9 +64,9 @@ public class CarController {
 
         Brand brand = optionalBrand.get();
 
-        List<CarListItemDTO> cars = brand.getCars()
+        List<CarReadDTO> cars = brand.getCars()
                 .stream()
-                .map(car -> new CarListItemDTO(car.getBrand().getId(), car.getModel(), car.getProductionYear(), car.getPrice()))
+                .map(car -> new CarReadDTO(car.getId(), car.getBrand().getId(), car.getModel(), car.getProductionYear(), car.getPrice()))
                 .toList();
 
         return new ResponseEntity<>(cars, HttpStatus.OK);
@@ -112,7 +112,7 @@ public class CarController {
         }
 
         carService.update(car);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(new CarUpdateDTO(car.getBrand().getId(), car.getModel(), car.getProductionYear(), car.getPrice()), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{uuid}")

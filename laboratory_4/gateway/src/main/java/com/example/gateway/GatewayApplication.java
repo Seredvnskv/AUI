@@ -21,12 +21,12 @@ public class GatewayApplication {
                 .route("brands", route -> route
                         .host("localhost:8080")
                         .and()
-                        .path("/api/brands", "/api/brands/{uuid}", "/api/name/{name}")
+                        .path("/api/brands", "/api/brands/{uuid}", "/api/brands/name/{name}")
                         .uri(brandsAPI))
                 .route("cars", route -> route
                         .host("localhost:8080")
                         .and()
-                        .path("api/cars", "api/cars/{uuid}", "/api/cars/brand/{uuid}/models")
+                        .path("/api/cars", "/api/cars/{uuid}", "/api/cars/brand/{uuid}/models")
                         .uri(carsAPI))
                 .build();
     }

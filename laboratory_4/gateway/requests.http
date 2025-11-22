@@ -1,1 +1,94 @@
-GET http://localhost:8080/api/brands
+@gateway = http://localhost:8080/api/
+
+### GET ALL BRANDS
+GET {{gateway}}/brands
+
+### GET BRAND BY ID
+GET {{gateway}}/brands/01083da2-df15-36eb-be62-186418a76863
+
+### GET ALL CARS
+GET {{gateway}}/cars
+
+### GET CAR BY ID
+GET {{gateway}}/cars/8d2d3317-2d90-37a8-a4ea-6ac4a0fafda5
+
+### CREATE NEW BRAND
+POST {{gateway}}/brands
+Content-Type: application/json
+
+{
+  "name": "Ferrari",
+  "country": "Italy",
+  "establishmentDate": 1947
+}
+
+### CREATE NEW CAR
+POST {{gateway}}/cars
+Content-Type: application/json
+
+{
+  "model": "Hurracan",
+  "productionYear": 2020,
+  "price": 1000000,
+  "barndId": "6c5b90ce-a858-312b-8a7f-070448f8cd1f"
+}
+
+### FAILED BRAND CREATE REQUEST
+POST {{gateway}}/brands
+Content-Type: application/json
+
+{
+  "name": "Ferrari",
+  "country": "Italy",
+  "establishmentDate": -1947
+}
+
+### FAILED CAR CREATE REQUEST
+POST {{gateway}}/cars
+Content-Type: application/json
+
+{
+  "model": "Hurracan",
+  "productionYear": 2020,
+  "price": -2000,
+  "barndId": "6c5b90ce-a858-312b-8a7f-070448f8cd1f"
+}
+
+### UPDATE BRAND
+PATCH {{gateway}}/brands/6c5b90ce-a858-312b-8a7f-070448f8cd1f
+Content-Type: application/json
+
+{
+  "country": "Poland",
+  "establishmentDate": 1999
+}
+
+### UPDATE CAR
+PATCH {{gateway}}/cars/a7459363-9ec0-373c-8c80-250256ff795d
+Content-Type: application/json
+
+{
+  "price": 2000
+}
+
+### FAILED BRAND UPDATE REQUEST
+PATCH {{gateway}}/brands/6c5b90ce-a858-312b-8a7f-070448f8cd1f
+Content-Type: application/json
+
+{
+  "establishmentDate": -2000
+}
+
+### FAILED CAR UPDATE REQUEST
+PATCH {{gateway}}/cars/a7459363-9ec0-373c-8c80-250256ff795d
+Content-Type: application/json
+
+{
+  "price": -500000
+}
+
+### DELETE BRAND
+DELETE {{gateway}}/brands/01083da2-df15-36eb-be62-186418a76863
+
+### DELETE CAR
+DELETE {{gateway}}/cars/c32ddd0a-a289-32f6-bf1d-b27d1dc18d0f
