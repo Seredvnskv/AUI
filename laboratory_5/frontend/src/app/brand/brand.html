@@ -1,0 +1,28 @@
+<article class="text--justified">
+  @if (brands) {
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (brand of brands; track brand.id) {
+          <tr>
+            <td>{{ brand.id }}</td>
+            <td>{{ brand.name }}</td>
+            <td>
+              <button>Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+  @else {
+    <p>No brands found.</p>
+  }
+</article>
+
