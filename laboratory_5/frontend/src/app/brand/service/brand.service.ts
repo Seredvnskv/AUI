@@ -9,7 +9,11 @@ import {BrandModel} from '../model/brand.model';
 export class BrandService {
   constructor(private http: HttpClient) {}
 
-  findAllBrands(): Observable<BrandModel[]> {
+  getBrands(): Observable<BrandModel[]> {
     return this.http.get<BrandModel[]>('/api/brands')
+  }
+
+  deleteBrand(id: string): Observable<void> {
+    return this.http.delete<void>(`/api/brands/${id}`);
   }
 }
