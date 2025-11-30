@@ -1,0 +1,21 @@
+<section class="brand-list">
+  @if (brands) {
+    @for (brand of brands; track brand.id) {
+      <div class="brand-card">
+        <div class="brand-card__header">
+          <p class="brand-name">{{ brand.name }}</p>
+        </div>
+        <div class="brand-card__actions">
+          <button class="btn btn--primary" type="button" [routerLink]="['/brands', brand.id]">Details</button>
+          <button class="btn btn--secondary" type="button">Edit</button>
+          <button class="btn btn--danger" type="button" (click)="deleteBrand(brand.id)">Delete</button>
+        </div>
+      </div>
+    }
+    <div class="brand-card__add">
+      <div class="brand-card__actions">
+        <button class="btn btn--add" type="button">Add</button>
+      </div>
+    </div>
+  }
+</section>

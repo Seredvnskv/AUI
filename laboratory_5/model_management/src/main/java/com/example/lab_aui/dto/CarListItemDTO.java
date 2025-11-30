@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Value
 public class CarListItemDTO {
-    UUID brandId;
+    UUID id;
     String model;
     Integer productionYear;
     Double price;

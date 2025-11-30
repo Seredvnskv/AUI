@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {BrandModel} from '../model/brand.model';
+import { Brand } from '../model/brand'
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +9,15 @@ import {BrandModel} from '../model/brand.model';
 export class BrandService {
   constructor(private http: HttpClient) {}
 
-  getBrands(): Observable<BrandModel[]> {
-    return this.http.get<BrandModel[]>('/api/brands')
+  getBrands(): Observable<Brand[]> {
+    return this.http.get<Brand[]>('/api/brands');
+  }
+
+  getBrand(id: string): Observable<Brand> {
+    return this.http.get<Brand>(`api/brands/${id}`);
   }
 
   deleteBrand(id: string): Observable<void> {
-    return this.http.delete<void>(`/api/brands/${id}`);
+    return this.http.delete<void>(`/api/brands/${id}`)
   }
 }

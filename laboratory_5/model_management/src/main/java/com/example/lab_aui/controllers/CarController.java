@@ -34,7 +34,7 @@ public class CarController {
     public ResponseEntity<List<CarListItemDTO>> getCars() {
         return new ResponseEntity<>(carService.findAll()
                 .stream()
-                .map(car -> new CarListItemDTO(car.getBrand().getId(), car.getModel(),  car.getProductionYear(), car.getPrice()))
+                .map(car -> new CarListItemDTO(car.getId(), car.getModel(),  car.getProductionYear(), car.getPrice()))
                 .toList(),  HttpStatus.OK);
     }
 
