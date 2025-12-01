@@ -13,6 +13,10 @@ export class CarService {
     return this.http.get<Car[]>('/api/cars');
   }
 
+  getCarsFromBrand(id: string): Observable<Car[]> {
+    return this.http.get<Car[]>(`/api/cars/brand/${id}/models`);
+  }
+
   deleteCar(id: string): Observable<void> {
     return this.http.delete<void>(`/api/cars/${id}`)
   }

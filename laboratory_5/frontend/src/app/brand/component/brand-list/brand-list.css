@@ -40,7 +40,7 @@
 .brand-card__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .brand-name {
@@ -53,11 +53,12 @@
 
 .brand-card__actions {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn {
   appearance: none;
   border: 1px solid transparent;
@@ -73,33 +74,33 @@
   transform: translateY(1px);
 }
 
-.btn--primary {
+.btn--details {
   background: #2563eb; /* blue-600 */
   color: #ffffff;
 }
-.btn--primary:hover { background: #1d4ed8; }
-.btn--primary:focus-visible {
+.btn--details:hover { background: #1d4ed8; }
+.btn--details:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
 }
 
-.btn--secondary {
+.btn--edit {
   background: #f3f4f6; /* gray-100 */
   color: #111827;
   border-color: #e5e7eb;
 }
-.btn--secondary:hover { background: #e5e7eb; }
-.btn--secondary:focus-visible {
+.btn--edit:hover { background: #e5e7eb; }
+.btn--edit:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.25);
 }
 
-.btn--danger {
+.btn--delete {
   background: #ef4444; /* red-500 */
   color: #ffffff;
 }
-.btn--danger:hover { background: #dc2626; }
-.btn--danger:focus-visible {
+.btn--delete:hover { background: #dc2626; }
+.btn--delete:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
 }

@@ -6,9 +6,9 @@
           <p class="brand-name">{{ brand.name }}</p>
         </div>
         <div class="brand-card__actions">
-          <button class="btn btn--primary" type="button" [routerLink]="['/brands', brand.id]">Details</button>
-          <button class="btn btn--secondary" type="button">Edit</button>
-          <button class="btn btn--danger" type="button" (click)="deleteBrand(brand.id)">Delete</button>
+          <button class="btn btn--details" type="button" [routerLink]="['/brands', brand.id]">Details</button>
+          <button class="btn btn--edit" type="button" [routerLink]="['/brands', brand.id, 'edit']">Edit</button>
+          <button class="btn btn--delete" type="button" (click)="deleteBrand(brand.id)">Delete</button>
         </div>
       </div>
     }

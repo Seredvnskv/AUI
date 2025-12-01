@@ -1,13 +1,57 @@
-<section>
+<section class="brand-details">
   @if (brand) {
-    <div>
-      <p>{{brand.id}}</p>
-      <p>{{brand.name}}</p>
-      <p>{{brand.country}}</p>
-      <p>{{brand.establishmentDate}}</p>
+    <header class="brand-header">
+      <h1 class="brand-title">{{ brand.name }}</h1>
+      <span class="brand-meta">ID: {{ brand.id }}</span>
+    </header>
+
+    <div class="brand-card">
+      <div class="brand-info">
+        <div class="info-row">
+          <span class="label">Country</span>
+          <span class="value">{{ brand.country }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Established</span>
+          <span class="value">{{ brand.establishmentDate }}</span>
+        </div>
+      </div>
     </div>
+
+    <h2 class="section-title">Cars</h2>
+
+    @if (cars?.length) {
+      <div class="cars-grid">
+        @for (car of cars; track car.id) {
+          <article class="car-card">
+            <div class="car-card__header">
+              <h3 class="car-model">{{ car.model }}</h3>
+              <span class="car-year">{{ car.productionYear }}</span>
+            </div>
+            <div class="car-card__body">
+              <div class="info-row">
+                <span class="label">ID</span>
+                <span class="value">{{ car.id }}</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Price</span>
+                <span class="value">{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
+              </div>
+            </div>
+            <div class="car-card__remove">
+              <button class="btn btn--delete" type="button">Delete</button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+    @else {
+      <div class="empty-state">
+        <p>Brand has no cars.</p>
+      </div>
+    }
   }
   @else {
-    <p>Loading...</p>
+    <div class="loading">Loading...</div>
   }
 </section>

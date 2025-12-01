@@ -26,6 +26,8 @@ export class CarList implements OnInit {
   }
 
   deleteCar(id: string): void {
-
+    this.service.deleteCar(id).subscribe(() => {
+      this.fetchCars();
+    });
   }
 }

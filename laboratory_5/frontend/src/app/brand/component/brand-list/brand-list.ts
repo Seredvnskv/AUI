@@ -26,8 +26,8 @@ export class BrandList implements OnInit {
   }
 
   deleteBrand(id: string): void {
-
+    this.service.deleteBrand(id).subscribe(() => {
+      this.fetchBrands();
+    });
   }
-
-
 }

@@ -2,25 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import {Brand} from '../../model/brand';
 import {BrandService} from '../../service/brand-service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
+import {Car} from '../../../car/model/car';
+import {CarService} from '../../../car/service/car-service';
 
 @Component({
   selector: 'app-brand-details',
   standalone: false,
   templateUrl: './brand-details.html',
-  styleUrl: './brand-details.css',
+  styleUrls: ['./brand-details.css'],
 })
 export class BrandDetails implements  OnInit {
   brand: Brand | undefined;
+  cars: Car[] = [];
 
-  constructor(private service: BrandService, private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private BrandService: BrandService, private CarService: CarService, private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.service.getBrand(params['id']).subscribe(brand => {
+      this.BrandService.getBrand(params['id']).subscribe(brand => {
         this.brand = brand;
-        console.log(brand);
+        this.cdr.detectChanges();
+      });
+
+      this.CarService.getCarsFromBrand(params['id']).subscribe(cars => {
+        this.cars = cars;
+        console.log(cars);
         this.cdr.detectChanges();
       });
     });

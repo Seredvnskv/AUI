@@ -12,6 +12,8 @@ import { BrandList } from './brand/component/brand-list/brand-list';
 import { CarList } from './car/component/car-list/car-list';
 import { CarDetails } from './car/component/car-details/car-details';
 import { BrandDetails } from './brand/component/brand-details/brand-details';
+import { BrandEditView } from './brand/component/brand-edit-view/brand-edit-view';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { BrandDetails } from './brand/component/brand-details/brand-details';
     BrandList,
     CarList,
     CarDetails,
-    BrandDetails
+    BrandDetails,
+    BrandEditView
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
