@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="car-card__remove">
-              <button class="btn btn--delete" type="button">Delete</button>
+              <button class="btn btn--delete" type="button" (click)="deleteCar(car.id)">Delete</button>
             </div>
           </article>
         }
@@ -47,7 +47,7 @@
     }
     @else {
       <div class="empty-state">
-        <p>Brand has no cars.</p>
+        <p>Brand has no cars yet.</p>
       </div>
     }
   }

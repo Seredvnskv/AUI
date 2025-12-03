@@ -15,7 +15,10 @@ export class BrandList implements OnInit {
   brands: Brand[] = [];
 
   ngOnInit() {
-    this.fetchBrands();
+    this.service.getBrands().subscribe(brands => {
+      this.brands = brands;
+      this.cdr.detectChanges();
+    });
   }
 
   fetchBrands(): void {

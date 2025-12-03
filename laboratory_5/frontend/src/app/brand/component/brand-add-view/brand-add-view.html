@@ -1,0 +1,24 @@
+<section class="brand-edit" xmlns="http://www.w3.org/1999/html">
+  <header class="brand-edit__header">
+    <h2 class="brand-edit__title">Add Brand</h2>
+  </header>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()" class="edit-form">
+    <div class="form-row">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-input" id="name" name="name" type="text" [(ngModel)]="name"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="country">Country</label>
+      <input class="form-input" id="country" name="country" type="text" [(ngModel)]="country"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="establishmentDate">Establishment</label>
+      <input class="form-input" id="establishmentDate" name="establishmentDate"  type="number" [(ngModel)]="establishmentDate"/>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn--edit" type="submit">Add</button>
+      <button class="btn btn--reset" type="button" (click)="onReset()">Reset</button>
+    </div>
+  </form>
+</section>

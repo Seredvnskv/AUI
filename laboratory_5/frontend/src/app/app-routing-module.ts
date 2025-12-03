@@ -4,6 +4,7 @@ import {BrandList} from './brand/component/brand-list/brand-list';
 import {CarList} from './car/component/car-list/car-list';
 import {BrandDetails} from './brand/component/brand-details/brand-details';
 import {BrandEditView} from './brand/component/brand-edit-view/brand-edit-view';
+import {BrandAddView} from './brand/component/brand-add-view/brand-add-view';
 
 const routes: Routes = [
   {
@@ -15,12 +16,16 @@ const routes: Routes = [
     component: CarList
   },
   {
-    path: "brands/:id",
-    component: BrandDetails
+    path: "brands/add",
+    component: BrandAddView
   },
   {
     path: "brands/:id/edit",
     component: BrandEditView
+  },
+  {
+    path: "brands/:id",
+    component: BrandDetails
   }
 ];
 

@@ -19,6 +19,10 @@ export class BrandDetails implements  OnInit {
   constructor(private BrandService: BrandService, private CarService: CarService, private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.fetchBrandsCars();
+  }
+
+  fetchBrandsCars(): void {
     this.route.params.subscribe(params => {
       this.BrandService.getBrand(params['id']).subscribe(brand => {
         this.brand = brand;
@@ -32,4 +36,11 @@ export class BrandDetails implements  OnInit {
       });
     });
   }
+
+  deleteCar(id: string): void {
+    this.CarService.deleteCar(id).subscribe(() => {
+      this.fetchBrandsCars();
+    });
+  }
+
 }
