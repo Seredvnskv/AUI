@@ -74,7 +74,7 @@ public class CarController {
 
     @PostMapping
     public ResponseEntity<CarCreateDTO> createCar(@Valid @RequestBody CarCreateDTO carCreateDTO) {
-        Optional<Brand> brand = brandService.findById(carCreateDTO.getBarndId());
+        Optional<Brand> brand = brandService.findById(carCreateDTO.getBrandId());
 
         if (brand.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -88,7 +88,7 @@ public class CarController {
                 .build();
 
         carService.add(car);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(new CarCreateDTO(car.getBrand().getId(), car.getModel(), car.getProductionYear(), car.getPrice()), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{uuid}")

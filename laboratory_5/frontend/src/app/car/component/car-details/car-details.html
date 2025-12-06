@@ -1,1 +1,34 @@
-<p>car-details works!</p>
+<section>
+  @if (brand && car) {
+    <div class="info-card">
+      <header class="brand-info">
+        <h1>{{brand.name}}</h1>
+        <div>
+          <span>Brand ID: </span>
+          <span>{{brand.id}}</span>
+        </div>
+      </header>
+      <div class="car-info">
+        <div>
+          <span>Car ID: </span>
+          <span>{{car.id}}</span>
+        </div>
+        <div>
+          <span>Model: </span>
+          <span>{{car.model}}</span>
+        </div>
+        <div>
+          <span>Year: </span>
+          <span>{{car.productionYear}}</span>
+        </div>
+        <div>
+          <span>Price: </span>
+          <span>{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
+  }
+  @else {
+    <p>Not found</p>
+  }
+</section>

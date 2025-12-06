@@ -18,7 +18,6 @@ export class BrandEditView implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.BrandService.getBrand(params['id']).subscribe(brand => {
-        console.log(brand);
         this.brand = brand;
         this.id = this.brand.id;
         this.cdr.detectChanges();

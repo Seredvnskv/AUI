@@ -15,6 +15,8 @@ import { BrandDetails } from './brand/component/brand-details/brand-details';
 import { BrandEditView } from './brand/component/brand-edit-view/brand-edit-view';
 import {FormsModule} from '@angular/forms';
 import { BrandAddView } from './brand/component/brand-add-view/brand-add-view';
+import { CarAddView } from './car/component/car-add-view/car-add-view';
+import { CarEditView } from './car/component/car-edit-view/car-edit-view';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { BrandAddView } from './brand/component/brand-add-view/brand-add-view';
     CarDetails,
     BrandDetails,
     BrandEditView,
-    BrandAddView
+    BrandAddView,
+    CarAddView,
+    CarEditView
   ],
   imports: [
     BrowserModule,

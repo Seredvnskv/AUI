@@ -76,6 +76,13 @@
   color: var(--text);
 }
 
+.car-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
 .cars-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -92,10 +99,12 @@
   box-shadow: 0 1px 2px var(--raised);
   padding: 14px;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  cursor: pointer;
 }
+
 .car-card:hover {
   transform: translateY(-1px);
-  border-color: #d1d5db;
+  border-color: #8c9fd8;
   box-shadow: 0 6px 14px var(--raised-strong);
 }
 
@@ -121,11 +130,11 @@
   padding: 6px 0;
 }
 
-.car-card__remove {
+.car-card__buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  gap: 1rem;
   padding: 10px;
 }
 
@@ -152,6 +161,28 @@
 .btn--delete:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
+}
+
+.btn--add {
+  background: #35cd38;
+  color: #ffffff;
+  height: 60%;
+}
+.btn--add:hover { background: #1c9820; }
+.btn-add:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.25);
+}
+
+.btn--edit {
+  background: #0563d1;
+  color: #ffffff;
+  border-color: #e5e7eb;
+}
+.btn--edit:hover { background: #6994f6; }
+.btn--edit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.25);
 }
 
 .empty-state {

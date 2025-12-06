@@ -7,8 +7,8 @@ import java.util.UUID;
 
 @Value
 public class CarCreateDTO {
-    @NotNull(message = "Brand id can't be empty")
-    UUID barndId;
+    @NotNull(message = "Brand id can't be null")
+    UUID brandId;
 
     @NotBlank(message = "Model can't be empty")
     String model;

@@ -18,28 +18,28 @@
       </div>
     </div>
 
-    <h2 class="section-title">Cars</h2>
+    <div class="car-header">
+      <h2 class="section-title">Cars</h2>
+      <button class="btn btn--add" type="button" [routerLink]="['/cars', brand.id, 'add']">Add</button>
+    </div>
 
-    @if (cars?.length) {
+    @if (cars) {
       <div class="cars-grid">
         @for (car of cars; track car.id) {
-          <article class="car-card">
+          <article class="car-card" [routerLink]="['/cars', brand.id, car.id, 'details']">
             <div class="car-card__header">
               <h3 class="car-model">{{ car.model }}</h3>
               <span class="car-year">{{ car.productionYear }}</span>
             </div>
             <div class="car-card__body">
               <div class="info-row">
-                <span class="label">ID</span>
-                <span class="value">{{ car.id }}</span>
-              </div>
-              <div class="info-row">
                 <span class="label">Price</span>
                 <span class="value">{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
               </div>
             </div>
-            <div class="car-card__remove">
-              <button class="btn btn--delete" type="button" (click)="deleteCar(car.id)">Delete</button>
+            <div class="car-card__buttons">
+              <button class="btn btn--edit" type="button" [routerLink]="['/cars', brand.id, car.id, 'edit']" (click)="$event.stopPropagation()">Edit</button>
+              <button class="btn btn--delete" type="button" (click)="$event.stopPropagation(); deleteCar(car.id)">Delete</button>
             </div>
           </article>
         }

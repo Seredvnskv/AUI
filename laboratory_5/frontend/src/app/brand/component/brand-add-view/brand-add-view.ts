@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Brand} from '../../model/brand';
 import {BrandService} from '../../service/brand-service';
-import {forkJoin} from 'rxjs';
 import {BrandCreateDTO} from '../../model/brandCreateDTO';
 import {Router} from '@angular/router';
 
@@ -24,7 +23,7 @@ export class BrandAddView {
     this.BrandService.addBrand(newBrand).subscribe(createdBrand => {
       this.brand = createdBrand;
       console.log(this.brand);
-      this.router.navigate(['/brands'])
+      this.router.navigate(['/brands']);
     });
   }
 
