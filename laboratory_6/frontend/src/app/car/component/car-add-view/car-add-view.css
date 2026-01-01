@@ -1,0 +1,73 @@
+.car-edit {
+  display: block;
+  padding: 16px;
+}
+
+.car-edit__header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.car-edit__title {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+  padding: 20px;
+}
+
+.form-row {
+  display: grid;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.form-input {
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #d1d5db;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: #f3f4f6;
+  color: #111827;
+  cursor: pointer;
+}
+.btn:hover { background: #e5e7eb; }
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.15);
+}

@@ -1,0 +1,47 @@
+import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing-module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { App } from './app';
+
+import { Footer } from './component/footer/footer';
+import { Main } from './component/main/main';
+import { Header } from './component/header/header';
+import { BrandList } from './brand/component/brand-list/brand-list';
+import { CarList } from './car/component/car-list/car-list';
+import { CarDetails } from './car/component/car-details/car-details';
+import { BrandDetails } from './brand/component/brand-details/brand-details';
+import { BrandEditView } from './brand/component/brand-edit-view/brand-edit-view';
+import {FormsModule} from '@angular/forms';
+import { BrandAddView } from './brand/component/brand-add-view/brand-add-view';
+import { CarAddView } from './car/component/car-add-view/car-add-view';
+import { CarEditView } from './car/component/car-edit-view/car-edit-view';
+
+@NgModule({
+  declarations: [
+    App,
+    Footer,
+    Main,
+    Header,
+    BrandList,
+    CarList,
+    CarDetails,
+    BrandDetails,
+    BrandEditView,
+    BrandAddView,
+    CarAddView,
+    CarEditView
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+  bootstrap: [App]
+})
+export class AppModule { }

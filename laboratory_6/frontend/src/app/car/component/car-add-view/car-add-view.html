@@ -1,0 +1,24 @@
+<section class="car-edit" xmlns="http://www.w3.org/1999/html">
+  <header class="brand-edit__header">
+    <h2 class="car-edit__title">Add Car</h2>
+  </header>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()" class="edit-form">
+    <div class="form-row">
+      <label class="form-label" for="model">Model</label>
+      <input class="form-input" id="model" name="model" type="text" [(ngModel)]="model"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="productionYear">Production Year</label>
+      <input class="form-input" id="productionYear" name="productionYear" type="number" [(ngModel)]="productionYear"/>
+    </div>
+    <div class="form-row">
+      <label class="form-label" for="price">Price</label>
+      <input class="form-input" id="price" name="price"  type="number" [(ngModel)]="price"/>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn--edit" type="submit">Add</button>
+      <button class="btn btn--reset" type="button" (click)="onReset()">Reset</button>
+    </div>
+  </form>
+</section>

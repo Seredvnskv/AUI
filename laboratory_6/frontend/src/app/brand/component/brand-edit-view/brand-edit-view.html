@@ -1,0 +1,25 @@
+<section class="brand-edit" xmlns="http://www.w3.org/1999/html">
+  <header class="car-edit__header">
+    <h2 class="brand-edit__title">Edit Brand</h2>
+  </header>
+
+  @if (brand) {
+    <form #form="ngForm" (ngSubmit)="onSubmit()" class="edit-form">
+      <div class="form-row">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-input" id="name" name="name" [(ngModel)]="brand.name" type="text" />
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="country">Country</label>
+        <input class="form-input" id="country" name="country" [(ngModel)]="brand.country" type="text" />
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="establishmentDate">Establishment</label>
+        <input class="form-input" id="establishmentDate" name="establishmentDate" [(ngModel)]="brand.establishmentDate" type="text" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn--edit" type="submit">Update</button>
+      </div>
+    </form>
+  }
+</section>

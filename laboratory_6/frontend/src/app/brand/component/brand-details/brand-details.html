@@ -1,0 +1,57 @@
+<section class="brand-details">
+  @if (brand) {
+    <header class="brand-header">
+      <h1 class="brand-title">{{ brand.name }}</h1>
+      <span class="brand-meta">ID: {{ brand.id }}</span>
+    </header>
+
+    <div class="brand-card">
+      <div class="brand-info">
+        <div class="info-row">
+          <span class="label">Country</span>
+          <span class="value">{{ brand.country }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Established</span>
+          <span class="value">{{ brand.establishmentDate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-header">
+      <h2 class="section-title">Cars</h2>
+      <button class="btn btn--add" type="button" [routerLink]="['/cars', brand.id, 'add']">Add</button>
+    </div>
+
+    @if (cars) {
+      <div class="cars-grid">
+        @for (car of cars; track car.id) {
+          <article class="car-card" [routerLink]="['/cars', brand.id, car.id, 'details']">
+            <div class="car-card__header">
+              <h3 class="car-model">{{ car.model }}</h3>
+              <span class="car-year">{{ car.productionYear }}</span>
+            </div>
+            <div class="car-card__body">
+              <div class="info-row">
+                <span class="label">Price</span>
+                <span class="value">{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
+              </div>
+            </div>
+            <div class="car-card__buttons">
+              <button class="btn btn--edit" type="button" [routerLink]="['/cars', brand.id, car.id, 'edit']" (click)="$event.stopPropagation()">Edit</button>
+              <button class="btn btn--delete" type="button" (click)="$event.stopPropagation(); deleteCar(car.id)">Delete</button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+    @else {
+      <div class="empty-state">
+        <p>Brand has no cars yet.</p>
+      </div>
+    }
+  }
+  @else {
+    <div class="loading">Loading...</div>
+  }
+</section>

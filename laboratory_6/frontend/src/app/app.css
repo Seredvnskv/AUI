@@ -1,0 +1,26 @@
+:host {
+  /* Design tokens */
+  --bg: #f7f8fb;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --surface-1: #ffffff;
+  --border: #e5e7eb;
+
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+/* Make the app take full height and allow sticky footer layout */
+:host > div {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make main area grow to push footer to bottom when content is short */
+app-main {
+  flex: 1 1 auto;
+}
