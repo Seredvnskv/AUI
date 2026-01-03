@@ -1,0 +1,16 @@
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\controllers\BrandController.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\controllers\CarController.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\data_base_seed\databaseSeed.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\dto\CarCreateDTO.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\dto\CarListItemDTO.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\dto\CarReadDTO.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\dto\CarUpdateDTO.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\entities\Brand.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\entities\Car.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\model_manager.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\repositories\BrandRepository.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\repositories\CarRepository.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\services\BrandService.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\services\CarService.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\services\interfaces\BrandServiceInterface.java
+C:\Users\Sambor\Desktop\AUI\laboratory_6\model_management\src\main\java\com\example\lab_aui\services\interfaces\CarServiceInterface.java

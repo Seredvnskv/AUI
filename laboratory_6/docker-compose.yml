@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  model-management:
+    build:
+      context: ./model_management
+      dockerfile: Dockerfile
+    container_name: model-management
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      - BRAND_API=http://brand-management:8080
+    networks:
+      - app-network
+
+  brand-management:
+    build:
+      context: ./brand_management
+      dockerfile: Dockerfile
+    container_name: brand-management
+    restart: always
+    ports:
+      - "8082:8080"
+    environment:
+      - CARS_API=http://model-management:8080
+    networks:
+      - app-network
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - GATEWAY_API=gateway:8080
+      - CARS_API=http://model-management:8080
+      - BRAND_API=http://brand-management:8080
+    depends_on:
+      - model-management
+      - brand-management
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "8099:80"
+    environment:
+      - API_URL=http://gateway:8080
+    depends_on:
+      - gateway
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
