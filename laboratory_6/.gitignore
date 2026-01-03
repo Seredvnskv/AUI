@@ -1,0 +1,31 @@
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Node
+node_modules/
+dist/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+### Project specific ###
+HELP.md
+
+# Build artifacts
+*.jar
+*.war
+*.ear
+*.class
+
+# Logs
+*.log
+
