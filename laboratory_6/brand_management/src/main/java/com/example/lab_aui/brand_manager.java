@@ -1,5 +1,6 @@
 package com.example.lab_aui;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 
 @SpringBootApplication
 public class brand_manager {
+    @Value("${CARS_API:http://localhost:8081}")
+    private String carsApiUrl;
+
 	public static void main(String[] args) {
 		SpringApplication.run(brand_manager.class, args);
 	}
@@ -18,7 +22,7 @@ public class brand_manager {
     @Qualifier("cars")
     public RestTemplate restTemplate() {
         return new RestTemplateBuilder()
-                .rootUri("http://localhost:8081")
+                .rootUri(carsApiUrl)
                 .build();
     }
 }

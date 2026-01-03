@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>lab_aui</artifactId>
+	<artifactId>brand_manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lab_aui</name>
-	<description>lab_aui</description>
+	<name>brand_manager</name>
+	<description>brand_manager</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -57,6 +57,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 	</dependencies>
 
 	<build>

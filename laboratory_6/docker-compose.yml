@@ -11,8 +11,25 @@ services:
       - "8081:8080"
     environment:
       - BRAND_API=http://brand-management:8080
-    networks:
-      - app-network
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://model-db:5432/model_db
+      - SPRING_DATASOURCE_USERNAME=model_user
+      - SPRING_DATASOURCE_PASSWORD=model_password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+    depends_on:
+      - model-db
+
+  model-db:
+    image: postgres:17-alpine
+    restart: always
+    ports:
+        - "5432:5432"
+    environment:
+        - POSTGRES_USER=model_user
+        - POSTGRES_PASSWORD=model_password
+        - POSTGRES_DB=model_db
+    volumes:
+      - model-db-data:/var/lib/postgresql/data
 
   brand-management:
     build:
@@ -24,8 +41,26 @@ services:
       - "8082:8080"
     environment:
       - CARS_API=http://model-management:8080
-    networks:
-      - app-network
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://brand-db:5432/brand_db
+      - SPRING_DATASOURCE_USERNAME=brand_user
+      - SPRING_DATASOURCE_PASSWORD=brand_password
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+    depends_on:
+      - brand-db
+
+  brand-db:
+    image: postgres:17-alpine
+    restart: always
+    ports:
+        - "5433:5432"
+    environment:
+        - POSTGRES_USER=brand_user
+        - POSTGRES_PASSWORD=brand_password
+        - POSTGRES_DB=brand_db
+    volumes:
+      - brand-db-data:/var/lib/postgresql/data
+
 
   gateway:
     build:
@@ -43,8 +78,6 @@ services:
     depends_on:
       - model-management
       - brand-management
-    networks:
-      - app-network
 
   frontend:
     build:
@@ -58,10 +91,7 @@ services:
       - API_URL=http://gateway:8080
     depends_on:
       - gateway
-    networks:
-      - app-network
 
-networks:
-  app-network:
-    driver: bridge
-
+volumes:
+    brand-db-data:
+    model-db-data:
